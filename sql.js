@@ -1,4 +1,5 @@
 const Sequelize = require('sequelize');
+const uuidV4 = require('uuid/v4');
 
 module.exports = class SQL {
   constructor() {
@@ -21,6 +22,7 @@ module.exports = class SQL {
       password: Sequelize.STRING,
       first_name: Sequelize.STRING,
       last_name: Sequelize.STRING,
+      api_token: Sequelize.STRING,
     });
   }
 
@@ -31,13 +33,40 @@ module.exports = class SQL {
         password: password,
         first_name: firstName,
         last_name: lastName,
+        api_token: uuidV4(),
       }))
       .then(user => {
-        console.log(user.toJSON());
-        cb(true)
+        cb(false, {});
       })
-      .catch((err) => {
-        cb(false)
+      .catch(err => {
+        cb(true, {
+          reason: 'SQL error'
+        });
       });
+  }
+
+  loginUser(username, password, cb) {
+    this.User.findOne({
+      where: {
+        username: username,
+        password: password
+      }
+    })
+    .then(user => {
+      if(user == null) {
+        cb(true, {
+          reason: 'User not found'
+        });
+      } else {
+        cb(false, {
+          api_token: user.api_token
+        });
+      }
+    })
+    .catch(err => {
+      cb(true, {
+        reason: 'SQL error'
+      })
+    });
   }
 }
