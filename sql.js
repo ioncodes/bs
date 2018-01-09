@@ -69,4 +69,26 @@ module.exports = class SQL {
       })
     });
   }
+
+  getUser(apiToken, cb) {
+    this.User.findOne({
+      where: {
+        api_token: apiToken
+      }
+    })
+    .then(user => {
+      if(user == null) {
+        cb(true, {
+          reason: 'User not found'
+        });
+      } else {
+        cb(false, user);
+      }
+    })
+    .catch(err => {
+      cb(true, {
+        reason: 'SQL error'
+      });
+    })
+  }
 }
