@@ -14,6 +14,25 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }));
+app.use(express.static('public'));
+app.use(['/index*'], function(req, res, next) {
+   // gets executed if map contains route
+   // check if a sessions exists and if it's valid
+   // if not redirect to login
+  if(
+    req.session.api_token !== undefined &&
+    req.session.api_token !== null &&
+    function() {
+      sql.getUser(req.session.api_token, (err, data) => {
+        return !err;
+      });
+    }
+  ) {
+    next();
+  } else {
+    res.redirect('/login.html');
+  }
+});
 
 app.post('/api/user/register', (req, res) => {
   let username = req.body.username;

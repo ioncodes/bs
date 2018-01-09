@@ -39,6 +39,7 @@ module.exports = class SQL {
         cb(false, {});
       })
       .catch(err => {
+        console.log(err);
         cb(true, {
           reason: 'SQL error'
         });
@@ -64,6 +65,7 @@ module.exports = class SQL {
       }
     })
     .catch(err => {
+      console.log(err);
       cb(true, {
         reason: 'SQL error'
       })
@@ -86,6 +88,7 @@ module.exports = class SQL {
       }
     })
     .catch(err => {
+      console.log(err);
       cb(true, {
         reason: 'SQL error'
       });
