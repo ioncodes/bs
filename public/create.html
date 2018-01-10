@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>bs</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.min.css">
+  <link rel="stylesheet" href="css/default.css">
+  <link rel="stylesheet" href="css/create.css">
+  <link rel="stylesheet" href="css/navbar.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/js/materialize.min.js"></script>
+  <script src="js/default.js"></script>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+  <!-- Navbar & Sidebar -->
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo"><img class="responsive-img" id="logo" src="images/logo.png"/></a>
+      <ul class="right hide-on-med-and-down">
+        <li onclick="logout()"><a href="#">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+  <ul id="slide-out" class="sidenav sidenav-fixed">
+    <li>
+      <div class="user-view">
+        <div class="background">
+          <img src="images/stocks.jpg">
+        </div>
+        <a href="#"><img class="circle" src="images/logo.png"></a>
+        <a href="#"><span id="fullname" class="white-text name"></span></a>
+        <a href="#"><span id="username" class="white-text email"></span></a>
+        <!-- using email as little hack. Otherwise it will format it wrong! -->
+      </div>
+    </li>
+    <li><a class="waves-effect" href="index.html"><i class="material-icons">home</i>Home</a></li>
+    <li>
+      <div class="divider"></div>
+    </li>
+    <li><a class="subheader">Rooms</a></li>
+    <li><a class="waves-effect" href="browse.html"><i class="material-icons">games</i>Join</a></li>
+    <li><a class="waves-effect" href="#"><i class="material-icons">add_circle</i>Create</a></li>
+    <li><a class="waves-effect" href="rooms.html"><i class="material-icons">portrait</i>Your Rooms</a></li>
+    <li>
+      <div class="divider"></div>
+    </li>
+    <li><a class="subheader">Account</a></li>
+    <li><a class="waves-effect" href="portoflio.html"><i class="material-icons">attach_money</i>Portfolio</a></li>
+  </ul>
+  <!-- End Navbar & Sidebar -->
+
+  <div class="valign-wrapper">
+    <div class="container">
+      <h3 class="header">Create Room</h3>
+      <div class="card-panel white">
+        <div class="row">
+          <form class="col s12">
+            <div class="row">
+              <div class="input-field col s12">
+                <i class="material-icons prefix">attach_money</i>
+                <input id="startmoney" type="number" class="validate" placeholder="10000">
+                <label for="startmoney">Start Money</label>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <a onclick="create()" class="waves-effect waves-light btn"><i class="material-icons right">send</i>Create Room</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/navbar.js"></script>
+  <script src="js/create.js"></script>
+</body>
+
+</html>
