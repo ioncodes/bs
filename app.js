@@ -70,6 +70,16 @@ app.post('/api/user/login', (req, res) => {
   });
 });
 
+app.get('/api/user/username', (req, res) => {
+  sql.getUser(req.session.api_token, (err, data) => {
+    if(err) {
+      res.send({status: 'error', reason: err.reason});
+    } else {
+      res.send({status: 'ok', username: data.username});
+    }
+  });
+});
+
 app.listen(3000, () => {
   console.log('App listening on port 3000!');
 });
