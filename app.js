@@ -3,7 +3,19 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const SQL = require('./sql.js');
 const app = express();
+const MySQLStore = require('express-mysql-session')(session);
 const sql = new SQL();
+const options = {
+    host: 'localhost',
+    port: 3306,
+    user: 'root',
+    password: 'root',
+    database: 'bs_db'
+};
+// create our persistent store.
+// This caches all sessions in a MySQL database.
+// No sessions are lost after server restart.
+const sessionStore = new MySQLStore(options);
 
 app.use(bodyParser.urlencoded({
   extended: false
@@ -13,6 +25,7 @@ app.use(session({
   secret: 'ac82334c-d126-4123-8824-17f7799f083c',
   resave: false,
   saveUninitialized: true,
+  store: sessionStore,
 }));
 app.use(['/index*'], function(req, res, next) {
    // gets executed if map contains route
@@ -68,6 +81,16 @@ app.post('/api/user/login', (req, res) => {
         reason: data.reason
       });
     }
+  });
+});
+
+app.post('/api/user/logout', (req, res) => {
+  sessionStore.destroy(req.session.id, (err) => {
+    if(err) res.send({status: 'error'});
+    req.session.destroy((err) => {
+      if(err) res.send({status: 'error'});
+      res.send({status: 'ok'});
+    });
   });
 });
 

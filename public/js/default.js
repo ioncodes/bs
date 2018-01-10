@@ -28,7 +28,17 @@ function getUsername(cb) {
       cb(res.username);
     } else {
       M.toast({html: 'An error occured!'});
-      //cb(null);
+    }
+  });
+}
+
+function logout() {
+  post('/api/user/logout', {}, (res) => {
+    if(res.status === 'ok') {
+      M.toast({html: 'Logged out! Redirecting...'});
+      setTimeout(() => window.location.replace('/login.html'), 1000);
+    } else {
+      M.toast({html: 'An error occured!'});
     }
   });
 }

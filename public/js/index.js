@@ -1,5 +1,6 @@
 window.onload = () => {
   getUsername((username) => {
-    document.getElementById('msg').innerText = 'Welcome ' + username;
+    // document.getElementById('msg').innerText = 'Welcome ' + username;
+
   });
 }
