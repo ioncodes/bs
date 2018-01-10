@@ -1,10 +1,12 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const crypto = require('crypto');
 const SQL = require('./sql.js');
 const app = express();
 const MySQLStore = require('express-mysql-session')(session);
 const sql = new SQL();
+const salt = '%C*F-JaNdRgUkXp2s5v8y/B?D(G+KbPeShVmYq3t6w9z$C&F)J@McQfTjWnZr4u7';
 const options = {
     host: 'localhost',
     port: 3306,
@@ -50,7 +52,7 @@ app.use(express.static('public'));
 
 app.post('/api/user/register', (req, res) => {
   let username = req.body.username;
-  let password = req.body.password;
+  let password = hash(req.body.password);
   let firstName = req.body.first_name;
   let lastName = req.body.last_name;
   sql.createUser(username, password, firstName, lastName, (err, data) => {
@@ -68,7 +70,7 @@ app.post('/api/user/register', (req, res) => {
 
 app.post('/api/user/login', (req, res) => {
   let username = req.body.username;
-  let password = req.body.password;
+  let password = hash(req.body.password);
   sql.loginUser(username, password, (err, data) => {
     if(!err) {
       req.session.api_token = data.api_token;
@@ -127,3 +129,11 @@ app.get('/api/user/last_name', (req, res) => {
 app.listen(3000, () => {
   console.log('App listening on port 3000!');
 });
+
+function hash(password) {
+  let hash = crypto.createHmac('sha512', salt);
+  hash.update(password);
+  let hex = hash.digest('hex');
+  console.log(hex)
+  return hex;
+}
