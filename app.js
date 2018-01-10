@@ -134,6 +134,5 @@ function hash(password) {
   let hash = crypto.createHmac('sha512', salt);
   hash.update(password);
   let hex = hash.digest('hex');
-  console.log(hex)
   return hex;
 }
