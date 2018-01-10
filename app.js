@@ -27,7 +27,7 @@ app.use(session({
   saveUninitialized: true,
   store: sessionStore,
 }));
-app.use(['/index*'], function(req, res, next) {
+app.use(['/index*', '/join*', '/create*', '/rooms*', '/portfolio*'], function(req, res, next) {
    // gets executed if map contains route
    // check if a sessions exists and if it's valid
    // if not redirect to login
