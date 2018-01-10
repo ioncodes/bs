@@ -6,8 +6,10 @@
   <title>bs</title>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.min.css">
-  <link rel="stylesheet" href="/css/default.css">
-  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="css/default.css">
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/navbar.css">
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/js/materialize.min.js"></script>
   <script src="js/default.js"></script>
 
@@ -17,13 +19,33 @@
 <body>
   <nav>
     <div class="nav-wrapper">
-      <a href="#" class="brand-logo"><img class="responsive-img" id="logo" src="icons/logo.png"/></a>
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <a href="#" class="brand-logo"><img class="responsive-img" id="logo" src="images/logo.png"/></a>
+      <ul class="right hide-on-med-and-down">
         <li onclick="logout()"><a href="#">Logout</a></li>
       </ul>
     </div>
   </nav>
+  <ul id="slide-out" class="sidenav sidenav-fixed">
+    <li>
+      <div class="user-view">
+        <div class="background">
+          <img src="images/stocks.jpg">
+        </div>
+        <a href="#"><img class="circle" src="images/logo.png"></a>
+        <a href="#"><span id="fullname" class="white-text name"></span></a>
+        <a href="#"><span id="username" class="white-text email"></span></a> <!-- using email as little hack. Otherwise it will format it wrong! -->
+      </div>
+    </li>
+    <li><a href="#"><i class="material-icons">cloud</i>First Link With Icon</a></li>
+    <li><a href="#">Second Link</a></li>
+    <li>
+      <div class="divider"></div>
+    </li>
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#">Third Link With Waves</a></li>
+  </ul>
 
+  <script src="js/navbar.js"></script>
   <script src="js/index.js"></script>
 </body>
 

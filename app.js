@@ -104,6 +104,26 @@ app.get('/api/user/username', (req, res) => {
   });
 });
 
+app.get('/api/user/first_name', (req, res) => {
+  sql.getUser(req.session.api_token, (err, data) => {
+    if(err) {
+      res.send({status: 'error', reason: err.reason});
+    } else {
+      res.send({status: 'ok', first_name: data.first_name});
+    }
+  });
+});
+
+app.get('/api/user/last_name', (req, res) => {
+  sql.getUser(req.session.api_token, (err, data) => {
+    if(err) {
+      res.send({status: 'error', reason: err.reason});
+    } else {
+      res.send({status: 'ok', last_name: data.last_name});
+    }
+  });
+});
+
 app.listen(3000, () => {
   console.log('App listening on port 3000!');
 });

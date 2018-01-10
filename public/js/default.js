@@ -28,6 +28,29 @@ function getUsername(cb) {
       cb(res.username);
     } else {
       M.toast({html: 'An error occured!'});
+      cb(undefined);
+    }
+  });
+}
+
+function getFirstName(cb) {
+  get('/api/user/first_name', (res) => {
+    if(res.status === 'ok') {
+      cb(res.first_name);
+    } else {
+      M.toast({html: 'An error occured!'});
+      cb(undefined);
+    }
+  });
+}
+
+function getLastName(cb) {
+  get('/api/user/last_name', (res) => {
+    if(res.status === 'ok') {
+      cb(res.last_name);
+    } else {
+      M.toast({html: 'An error occured!'});
+      cb(undefined);
     }
   });
 }
