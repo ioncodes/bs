@@ -54,8 +54,18 @@ function register() {
   checkPassword();
   let ret = validate();
   if(ret) {
-    // send request
-      M.toast({html: 'Account created!'})
+    post('/api/user/register', {
+      username: username.value,
+      password: password.value,
+      first_name: firstName.value,
+      last_name: lastName.value,
+    }, (res) => {
+      if(res.status === 'ok') {
+        M.toast({html: 'Account created!'});
+      } else {
+        M.toast({html: 'Sorry, but there was an error!'})
+      }
+    });
   } else {
     M.toast({html: 'Sorry, but there was an error!'})
   }
