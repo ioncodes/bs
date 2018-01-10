@@ -2,9 +2,12 @@
   "name": "bs",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "lib/app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon lib/app.js --exec babel-node",
+    "build": "babel lib -d dist",
+    "serve": "node dist/app.js",
+    "test": "mocha --require babel-core/register"
   },
   "author": "",
   "license": "ISC",
@@ -14,7 +17,16 @@
     "express-mysql-session": "^1.2.3",
     "express-session": "^1.15.6",
     "mysql2": "^1.5.1",
+    "request": "^2.83.0",
     "sequelize": "^4.29.2",
     "uuid": "^3.1.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "mocha": "^4.1.0",
+    "nodemon": "^1.14.10"
   }
 }
