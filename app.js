@@ -14,11 +14,11 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
 }));
-app.use(express.static('public'));
 app.use(['/index*'], function(req, res, next) {
    // gets executed if map contains route
    // check if a sessions exists and if it's valid
    // if not redirect to login
+   // it must be located above express.static('public')!!
   if(
     req.session.api_token !== undefined &&
     req.session.api_token !== null &&
@@ -33,6 +33,7 @@ app.use(['/index*'], function(req, res, next) {
     res.redirect('/login.html');
   }
 });
+app.use(express.static('public'));
 
 app.post('/api/user/register', (req, res) => {
   let username = req.body.username;
