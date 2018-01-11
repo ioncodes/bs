@@ -94,6 +94,35 @@ describe('Börsenspiel', () => {
       done();
     });
   });
+  it('should create rooms successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/create',
+      method: 'POST',
+      json: {
+        start_value: 10000
+      },
+      jar: jar
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'ok');
+      done();
+    });
+  });
+  it('should list rooms successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/rooms',
+      method: 'GET',
+      jar: jar,
+    };
+    request(options, function(error, response, body) {
+      let json = JSON.parse(body);
+      assert.equal(error, null);
+      assert.equal(json.status, 'ok');
+      assert.equal(json.rooms.length, 1);
+      done();
+    });
+  });
   it('should delete account successfully', done => {
     var options = {
       uri: 'http://localhost:3000/api/user/delete',
