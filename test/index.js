@@ -10,6 +10,7 @@ const firstName = 'Raviolio';
 const lastName = 'Pertillo';
 
 var jar = request.jar(new FileCookieStore('cookies.json'));
+var roomId = 0;
 
 describe('Börsenspiel', () => {
   it('should start', done => {
@@ -120,6 +121,22 @@ describe('Börsenspiel', () => {
       assert.equal(error, null);
       assert.equal(json.status, 'ok');
       assert.equal(json.rooms.length, 1);
+      roomId = json.rooms[0].room_id;
+      done();
+    });
+  });
+  it('should delete rooms successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/delete',
+      method: 'POST',
+      json: {
+        room_id: roomId,
+      },
+      jar: jar,
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'ok');
       done();
     });
   });
