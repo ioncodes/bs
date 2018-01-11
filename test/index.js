@@ -1,5 +1,6 @@
 import request from 'request';
 import assert from 'assert';
+import FileCookieStore from 'tough-cookie-filestore';
 
 import '../lib/app.js';
 
@@ -8,12 +9,25 @@ const password = 'test';
 const firstName = 'Raviolio';
 const lastName = 'Pertillo';
 
-var jar = request.jar();
+var jar = request.jar(new FileCookieStore('cookies.json'));
 
-describe('Node Server', () => {
+describe('Börsenspiel', () => {
   it('should start', done => {
     request.get('http://localhost:3000/', (error, response, body) => {
       assert.equal(200, response.statusCode);
+      done();
+    });
+  });
+  it('should delete account successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/delete',
+      method: 'POST',
+      jar: jar,
+    };
+    request(options, function(error, response, body) {
+      let json = JSON.parse(body);
+      assert.equal(error, null);
+      assert.equal(json.status, 'ok');
       done();
     });
   });
