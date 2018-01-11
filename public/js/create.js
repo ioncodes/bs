@@ -1,8 +1,8 @@
-var startValue = document.getElementById('startvalue');
+var startValue = document.getElementById('startmoney');
 
 function create() {
   post('/api/room/create', {
-    start_value: startValue
+    start_value: startValue.value
   }, (res) => {
     if(res.status === 'ok') {
       M.toast({html: 'Room created!'});

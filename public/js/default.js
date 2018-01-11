@@ -55,6 +55,17 @@ function getLastName(cb) {
   });
 }
 
+function getRooms(cb) {
+  get('/api/room/rooms', (res) => {
+    if(res.status === 'ok') {
+      cb(res.rooms);
+    } else {
+      M.toast({html: 'An error occured!'});
+      cb(undefined);
+    }
+  });
+}
+
 function logout() {
   post('/api/user/logout', {}, (res) => {
     if(res.status === 'ok') {
