@@ -3,6 +3,13 @@ import assert from 'assert';
 
 import '../lib/app.js';
 
+const username = 'test';
+const password = 'test';
+const firstName = 'Raviolio';
+const lastName = 'Pertillo';
+
+var jar = request.jar();
+
 describe('Node Server', () => {
   it('should start', done => {
     request.get('http://localhost:3000/', (error, response, body) => {
@@ -15,15 +22,74 @@ describe('Node Server', () => {
       uri: 'http://localhost:3000/api/user/register',
       method: 'POST',
       json: {
-        username: 'test',
-        password: 'test',
-        first_name: 'Raviolio',
-        last_name: 'Pertillo'
+        username: username,
+        password: password,
+        first_name: firstName,
+        last_name: lastName
       }
     };
     request(options, function(error, response, body) {
       assert.equal(error, null);
       assert.equal(body.status, 'ok');
+      done();
+    });
+  });
+  it('should login successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/login',
+      method: 'POST',
+      json: {
+        username: username,
+        password: password
+      },
+      jar: jar
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'ok');
+      jar.setCookie(request.cookie(`${response.headers['set-cookie']}`), 'http://localhost:3000');
+      done();
+    });
+  });
+  it('should return username', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/username',
+      method: 'GET',
+      jar: jar,
+    };
+    request(options, function(error, response, body) {
+      let json = JSON.parse(body);
+      assert.equal(error, null);
+      assert.equal(json.status, 'ok');
+      assert.equal(json.username, username);
+      done();
+    });
+  });
+  it('should return first name', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/first_name',
+      method: 'GET',
+      jar: jar,
+    };
+    request(options, function(error, response, body) {
+      let json = JSON.parse(body);
+      assert.equal(error, null);
+      assert.equal(json.status, 'ok');
+      assert.equal(json.first_name, firstName);
+      done();
+    });
+  });
+  it('should return last name', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/last_name',
+      method: 'GET',
+      jar: jar,
+    };
+    request(options, function(error, response, body) {
+      let json = JSON.parse(body);
+      assert.equal(error, null);
+      assert.equal(json.status, 'ok');
+      assert.equal(json.last_name, lastName);
       done();
     });
   });
