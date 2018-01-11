@@ -18,19 +18,6 @@ describe('Börsenspiel', () => {
       done();
     });
   });
-  it('should delete account successfully', done => {
-    var options = {
-      uri: 'http://localhost:3000/api/user/delete',
-      method: 'POST',
-      jar: jar,
-    };
-    request(options, function(error, response, body) {
-      let json = JSON.parse(body);
-      assert.equal(error, null);
-      assert.equal(json.status, 'ok');
-      done();
-    });
-  });
   it('should register account successfully', done => {
     var options = {
       uri: 'http://localhost:3000/api/user/register',
@@ -104,6 +91,19 @@ describe('Börsenspiel', () => {
       assert.equal(error, null);
       assert.equal(json.status, 'ok');
       assert.equal(json.last_name, lastName);
+      done();
+    });
+  });
+  it('should delete account successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/delete',
+      method: 'POST',
+      jar: jar,
+    };
+    request(options, function(error, response, body) {
+      let json = JSON.parse(body);
+      assert.equal(error, null);
+      assert.equal(json.status, 'ok');
       done();
     });
   });
