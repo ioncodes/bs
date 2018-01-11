@@ -7,7 +7,7 @@
     "start": "nodemon lib/app.js --exec babel-node",
     "build": "babel lib -d dist",
     "serve": "node dist/app.js",
-    "test": "nyc mocha --require babel-core/register --exit"
+    "test": "nyc --reporter=html --reporter=text mocha --require babel-core/register --exit"
   },
   "author": "",
   "license": "ISC",
