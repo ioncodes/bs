@@ -7,7 +7,7 @@
     "start": "nodemon lib/app.js --exec babel-node",
     "build": "babel lib -d dist",
     "serve": "node dist/app.js",
-    "test": "mocha --require babel-core/register"
+    "test": "nyc mocha --require babel-core/register --exit"
   },
   "author": "",
   "license": "ISC",
@@ -28,6 +28,7 @@
     "babel-register": "^6.26.0",
     "mocha": "^4.1.0",
     "nodemon": "^1.14.10",
+    "nyc": "^11.4.1",
     "tough-cookie-filestore": "0.0.1"
   }
 }

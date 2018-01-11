@@ -1,5 +1,6 @@
 import request from 'request';
 import assert from 'assert';
+import shutdown from '../lib/app.js';
 import FileCookieStore from 'tough-cookie-filestore';
 
 import '../lib/app.js';
