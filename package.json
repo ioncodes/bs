@@ -7,7 +7,8 @@
     "start": "nodemon lib/app.js --exec babel-node",
     "build": "babel lib -d dist",
     "serve": "node dist/app.js",
-    "test": "nyc --reporter=html --reporter=text mocha --require babel-core/register --exit"
+    "test": "nyc --reporter=html --reporter=text --reporter lcovonly mocha --require babel-core/register --exit",
+    "report-coverage": "nyc report --reporter=lcov > coverage/coverage.lcov && cd coverage && codecov -t 0db9b073-cee8-463a-89be-292176712deb"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +27,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.26.0",
+    "codecov": "^3.0.0",
     "mocha": "^4.1.0",
     "nodemon": "^1.14.10",
     "nyc": "^11.4.1",
