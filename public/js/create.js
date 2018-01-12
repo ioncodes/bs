@@ -6,7 +6,7 @@ function create() {
   }, (res) => {
     if(res.status === 'ok') {
       M.toast({html: 'Room created!'});
-      setTimeout(() => window.location.replace('/room.html'), 1000);
+      setTimeout(() => window.location.replace(`/room.html?room_id=${res.room_id}`), 1000);
     } else {
       M.toast({html: 'Sorry, but there was an error!'})
     }
