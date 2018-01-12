@@ -20,6 +20,7 @@
     "mysql2": "^1.5.1",
     "request": "^2.83.0",
     "sequelize": "^4.29.2",
+    "stocks.js": "0.0.17",
     "uuid": "^3.1.0"
   },
   "devDependencies": {
