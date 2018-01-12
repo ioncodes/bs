@@ -1,8 +1,8 @@
 .chartcontainer {
   padding-left: 300px;
+  margin: 20px;
 }
 
-.chart {
-  max-width: 600px;
-  max-height: 400px;
+.stats {
+  max-width: 75%;
 }
