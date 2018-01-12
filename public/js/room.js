@@ -21,25 +21,38 @@ var stats = new Chart(ctx, {
       borderColor: chartColors.red,
       data: [
         1000.0,
-        2000.0
+        2000.0,
+        3000,
+        2500,
+        2,
+        50000
       ],
-      fill: false,
+      fill: true,
     }, {
       label: "Player 2",
-      fill: false,
       backgroundColor: chartColors.blue,
       borderColor: chartColors.blue,
       data: [
-        2.0,
-        10.0
+        1000.0,
+        3000.0,
+        40000,
+        23000,
+        2,
+        2000
       ],
+      fill: false,
     }]
   },
   options: {
+    elements: {
+      line: {
+        tension: 0, // disables bezier curves
+      }
+    },
     responsive: true,
     title: {
       display: true,
-      text: 'Dashboard'
+      text: 'Statistics'
     },
     tooltips: {
       mode: 'index',
