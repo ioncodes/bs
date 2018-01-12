@@ -37,6 +37,23 @@ describe('Börsenspiel', () => {
       done();
     });
   });
+  it('should not register duplicate account', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/register',
+      method: 'POST',
+      json: {
+        username: username,
+        password: password,
+        first_name: firstName,
+        last_name: lastName
+      }
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'error');
+      done();
+    });
+  });
   it('should login successfully', done => {
     var options = {
       uri: 'http://localhost:3000/api/user/login',
@@ -54,6 +71,21 @@ describe('Börsenspiel', () => {
       done();
     });
   });
+  it('should not login with wrong password', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/login',
+      method: 'POST',
+      json: {
+        username: username,
+        password: 'wrongPassword123'
+      },
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'error');
+      done();
+    });
+  });
   it('should return username', done => {
     var options = {
       uri: 'http://localhost:3000/api/user/username',
@@ -65,6 +97,18 @@ describe('Börsenspiel', () => {
       assert.equal(error, null);
       assert.equal(json.status, 'ok');
       assert.equal(json.username, username);
+      done();
+    });
+  });
+  it('should not return username if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/username',
+      method: 'GET',
+    };
+    request(options, function(error, response, body) {
+      let json = JSON.parse(body);
+      assert.equal(error, null);
+      assert.equal(json.status, 'error');
       done();
     });
   });
@@ -82,6 +126,18 @@ describe('Börsenspiel', () => {
       done();
     });
   });
+  it('should not return first name if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/first_name',
+      method: 'GET',
+    };
+    request(options, function(error, response, body) {
+      let json = JSON.parse(body);
+      assert.equal(error, null);
+      assert.equal(json.status, 'error');
+      done();
+    });
+  });
   it('should return last name', done => {
     var options = {
       uri: 'http://localhost:3000/api/user/last_name',
@@ -93,6 +149,18 @@ describe('Börsenspiel', () => {
       assert.equal(error, null);
       assert.equal(json.status, 'ok');
       assert.equal(json.last_name, lastName);
+      done();
+    });
+  });
+  it('should not return last name if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/last_name',
+      method: 'GET',
+    };
+    request(options, function(error, response, body) {
+      let json = JSON.parse(body);
+      assert.equal(error, null);
+      assert.equal(json.status, 'error');
       done();
     });
   });
@@ -111,6 +179,20 @@ describe('Börsenspiel', () => {
       done();
     });
   });
+  it('should not create rooms if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/create',
+      method: 'POST',
+      json: {
+        start_value: 10000
+      }
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'error');
+      done();
+    });
+  });
   it('should list rooms successfully', done => {
     var options = {
       uri: 'http://localhost:3000/api/room/rooms',
@@ -123,6 +205,18 @@ describe('Börsenspiel', () => {
       assert.equal(json.status, 'ok');
       assert.equal(json.rooms.length, 1);
       roomId = json.rooms[0].room_id;
+      done();
+    });
+  });
+  it('should not list rooms if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/rooms',
+      method: 'GET',
+    };
+    request(options, function(error, response, body) {
+      let json = JSON.parse(body);
+      assert.equal(error, null);
+      assert.equal(json.status, 'error');
       done();
     });
   });
@@ -141,6 +235,20 @@ describe('Börsenspiel', () => {
       done();
     });
   });
+  it('should not delete rooms if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/delete',
+      method: 'POST',
+      json: {
+        room_id: roomId,
+      }
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'error');
+      done();
+    });
+  });
   it('should delete account successfully', done => {
     var options = {
       uri: 'http://localhost:3000/api/user/delete',
@@ -151,6 +259,18 @@ describe('Börsenspiel', () => {
       let json = JSON.parse(body);
       assert.equal(error, null);
       assert.equal(json.status, 'ok');
+      done();
+    });
+  });
+  it('should not delete account if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/delete',
+      method: 'POST',
+    };
+    request(options, function(error, response, body) {
+      let json = JSON.parse(body);
+      assert.equal(error, null);
+      assert.equal(json.status, 'error');
       done();
     });
   });
