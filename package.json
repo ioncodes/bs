@@ -17,6 +17,7 @@
     "express": "^4.16.2",
     "express-mysql-session": "^1.2.3",
     "express-session": "^1.15.6",
+    "hashmap": "^2.3.0",
     "mysql2": "^1.5.1",
     "request": "^2.83.0",
     "sequelize": "^4.29.2",
