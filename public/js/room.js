@@ -13,33 +13,7 @@ var chartColors = {
 };
 var data = {
   labels: [],
-  datasets: [{
-    label: "Player 1",
-    backgroundColor: chartColors.red,
-    borderColor: chartColors.red,
-    data: [
-      1000.0,
-      2000.0,
-      3000,
-      2500,
-      2,
-      50000
-    ],
-    fill: true,
-  }, {
-    label: "Player 2",
-    backgroundColor: chartColors.blue,
-    borderColor: chartColors.blue,
-    data: [
-      1000.0,
-      3000.0,
-      40000,
-      23000,
-      2,
-      2000
-    ],
-    fill: false,
-  }]
+  datasets: [],
 };
 var options = {
   elements: {
@@ -79,8 +53,25 @@ var options = {
 };
 
 getStats(roomId, stats => {
+  let values = [];
   stats.forEach(stat => {
     data.labels.push(toDate(stat.timestamp));
+    stat.users.forEach((user, i) => {
+      if (values[i] === undefined) {
+        values[i] = [];
+      }
+      values[i].push(user.money);
+    });
+  });
+  values.forEach((money, i) => {
+    let color = getRandomColor();
+    data.datasets.push({
+      label: i,
+      backgroundColor: color,
+      borderColor: color,
+      fill: false, // TODO: true if owner
+      data: money
+    });
   });
   chart = new Chart(ctx, {
     type: 'line',
