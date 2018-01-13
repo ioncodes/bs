@@ -27,9 +27,9 @@ function readGet(parameterName) {
     tmp = [];
   location.search
     .substr(1)
-    .split("&")
+    .split('&')
     .forEach(function(item) {
-      tmp = item.split("=");
+      tmp = item.split('=');
       if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
     });
   return result;
@@ -98,6 +98,18 @@ function logout() {
       M.toast({
         html: 'An error occured!'
       });
+    }
+  });
+}
+
+function getMoney(roomId, cb) {
+  post('/api/room/money', {
+    room_id: roomId
+  }, (res) => {
+    if (res.status === 'ok') {
+      cb(res.money);
+    } else {
+      cb(undefined);
     }
   });
 }
