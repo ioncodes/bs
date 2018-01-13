@@ -127,11 +127,11 @@ function getStats(roomId, cb) {
 }
 
 function toDate(timestamp) {
-  var monthsArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-  var date = new Date(timestamp * 1000);
-  var year = date.getFullYear();
-  var month = monthsArr[date.getMonth()];
-  var day = date.getDate();
-  var convdataTime = month + '-' + day + '-' + year;
+  let monthsArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  let date = new Date(timestamp * 1000);
+  let year = date.getFullYear();
+  let month = monthsArr[date.getMonth()];
+  let day = date.getDate();
+  let convdataTime = month + '-' + day + '-' + year;
   return convdataTime;
 }
