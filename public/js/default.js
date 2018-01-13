@@ -113,3 +113,25 @@ function getMoney(roomId, cb) {
     }
   });
 }
+
+function getStats(roomId, cb) {
+  post('/api/room/stats', {
+    room_id: roomId
+  }, (res) => {
+    if (res.status === 'ok') {
+      cb(res.stats);
+    } else {
+      cb(undefined);
+    }
+  });
+}
+
+function toDate(timestamp) {
+  var months_arr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  var date = new Date(timestamp * 1000);
+  var year = date.getFullYear();
+  var month = months_arr[date.getMonth()];
+  var day = date.getDate();
+  var convdataTime = month + '-' + day + '-' + year;
+  return convdataTime;
+}
