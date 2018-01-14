@@ -3,6 +3,8 @@ var modalBuy = document.querySelector('#modalbuy');
 var modalSell = document.querySelector('#modalsell');
 var buyInstance = M.Modal.init(modalBuy, {});
 var sellInstance = M.Modal.init(modalSell, {});
+var buySymbol = document.querySelector('#buysymbol');
+var buyAmount = document.querySelector('#buyamount');
 
 var ctx = document.getElementById('stats').getContext('2d');
 var chart;
@@ -82,4 +84,34 @@ function buy() {
 
 function sell() {
   sellInstance.open();
+}
+
+function confirmBuy() {
+  post('/api/stock/buy', {
+    room_id: roomId,
+    symbol: buySymbol.value,
+    amount: buyAmount.value,
+  }, (res) => {
+    if(res.status === 'ok') {
+      M.toast({html: 'Bought!'});
+      setTimeout(() => window.location.reload(), 1000);
+    } else {
+      M.toast({html: 'Sorry, but there was an error!'})
+    }
+  });
+  M.toast({html: 'Buying... Please hold on...'});
+}
+
+function confirmSell() {
+  post('/api/stock/sell', {
+    stock_id: stockId
+  }, (res) => {
+    if(res.status === 'ok') {
+      M.toast({html: 'Sold!'});
+      setTimeout(() => window.location.reload(), 1000);
+    } else {
+      M.toast({html: 'Sorry, but there was an error!'})
+    }
+  });
+  M.toast({html: 'Selling... Please hold on...'});
 }

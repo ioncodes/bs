@@ -74,20 +74,30 @@
 
   <div id="modalbuy" class="modal">
     <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
+      <h4>Buy</h4>
+      <p>Please enter a symbol and an amount to buy.</p>
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="buysymbol" type="text" class="validate">
+          <label for="buysymbol">Symbol</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="buyamount" type="number" class="validate">
+          <label for="buyamount">Amount</label>
+        </div>
+      </div>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+      <a onclick="confirmBuy()" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
     </div>
   </div>
   <div id="modalsell" class="modal">
     <div class="modal-content">
-      <h4>Modal Header</h4>
-      <p>A bunch of text</p>
+      <h4>Sell</h4>
+      <p>Select your symbol.</p>
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+      <a onclick="confirmSell()" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
     </div>
   </div>
 
