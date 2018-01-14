@@ -13,6 +13,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/js/materialize.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
   <script src="js/default.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
@@ -61,16 +62,36 @@
   </div>
 
   <div class="fixed-action-btn" id="buy">
-    <a class="btn-floating btn-large red">
+    <a onclick="buy()" class="btn-floating btn-large red">
       <i class="material-icons">add_shopping_cart</i>
     </a>
   </div>
 
   <div class="fixed-action-btn" id="sell">
-    <a class="btn-floating btn-large red">
+    <a data-target="modalsell" onclick="sell()" class="btn-floating btn-large red">
       <i class="material-icons">attach_money</i>
     </a>
   </div>
+
+  <div id="modalbuy" class="modal">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+  <div id="modalsell" class="modal">
+    <div class="modal-content">
+      <h4>Modal Header</h4>
+      <p>A bunch of text</p>
+    </div>
+    <div class="modal-footer">
+      <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+  </div>
+
 
   <script src="js/navbar.js"></script>
   <script src="js/room.js"></script>

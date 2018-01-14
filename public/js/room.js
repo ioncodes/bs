@@ -1,4 +1,8 @@
 var roomId = readGet('room_id');
+var modalBuy = document.querySelector('#modalbuy');
+var modalSell = document.querySelector('#modalsell');
+var buyInstance = M.Modal.init(modalBuy, {});
+var sellInstance = M.Modal.init(modalSell, {});
 
 var ctx = document.getElementById('stats').getContext('2d');
 var chart;
@@ -70,3 +74,12 @@ getStats(roomId, stats => {
     options: options,
   });
 });
+
+
+function buy() {
+  buyInstance.open();
+}
+
+function sell() {
+  sellInstance.open();
+}
