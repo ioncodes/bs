@@ -219,6 +219,59 @@ describe('Börsenspiel', () => {
       done();
     });
   });
+  it('should list non-owner rooms successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/others',
+      method: 'GET',
+      jar: jar,
+    };
+    request(options, function(error, response, body) {
+      let json = JSON.parse(body);
+      assert.equal(error, null);
+      assert.equal(json.status, 'ok');
+      done();
+    });
+  });
+  it('should not list non-owner rooms if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/others',
+      method: 'GET',
+    };
+    request(options, function(error, response, body) {
+      let json = JSON.parse(body);
+      assert.equal(error, null);
+      assert.equal(json.status, 'error');
+      done();
+    });
+  });
+  it('should get room date successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/date',
+      method: 'POST',
+      json: {
+        room_id: roomId
+      },
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'ok');
+      done();
+    });
+  });
+  it('should not get room date if doesnt exist', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/date',
+      method: 'POST',
+      json: {
+        room_id: '404'
+      }
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'error');
+      done();
+    });
+  });
   it('should buy stocks successfully', done => {
     var options = {
       uri: 'http://localhost:3000/api/stock/buy',
@@ -300,6 +353,89 @@ describe('Börsenspiel', () => {
   it('should not get stats if not authorized', done => {
     var options = {
       uri: 'http://localhost:3000/api/room/stats',
+      method: 'POST',
+      json: {
+        room_id: roomId,
+      },
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'error');
+      done();
+    });
+  });
+  it('should get room money successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/money',
+      method: 'POST',
+      json: {
+        room_id: roomId,
+      },
+      jar: jar
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'ok');
+      done();
+    });
+  });
+  it('should not get room money if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/money',
+      method: 'POST',
+      json: {
+        room_id: roomId,
+      },
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'error');
+      done();
+    });
+  });
+  it('should get my stocks successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/stocks',
+      method: 'GET',
+      jar: jar,
+      json: {}
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'ok');
+      done();
+    });
+  });
+  it('should not get my stocks if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/stocks',
+      method: 'GET',
+      json: {}
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'error');
+      done();
+    });
+  });
+  it('should get room stocks successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/stocks',
+      method: 'POST',
+      json: {
+        room_id: roomId,
+      },
+      jar: jar
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'ok');
+      done();
+    });
+  });
+  it('should not get room stocks if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/stocks',
       method: 'POST',
       json: {
         room_id: roomId,
