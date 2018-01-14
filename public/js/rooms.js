@@ -20,6 +20,21 @@ window.onload = () => {
       });
     });
   });
+  getOtherRooms(rooms => {
+    rooms.forEach(room => {
+      let row = roomsTable.insertRow();
+      let startValue = row.insertCell(0);
+      let dateCell = row.insertCell(1);
+      let moneyCell = row.insertCell(2);
+      let btnShow = row.insertCell(3);
+      let btnDel = row.insertCell(4);
+      startValue.innerHTML = `$${room.start_value}`;
+      dateCell.innerHTML = new Date(room.date);
+      moneyCell.innerHTML = `$${room.money}`;
+      btnShow.innerHTML = `<a onclick="showRoom('${room.room_id}')" class="green waves-effect waves-light btn">show</a>`;
+      btnDel.innerHTML = '<a onclick="#" class="red waves-effect waves-light btn disabled">delete</a>';
+    });
+  });
 }
 
 function deleteRoom(roomId) {
