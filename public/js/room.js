@@ -5,7 +5,7 @@ var buyInstance = M.Modal.init(modalBuy, {});
 var sellInstance = M.Modal.init(modalSell, {});
 var buySymbol = document.querySelector('#buysymbol');
 var buyAmount = document.querySelector('#buyamount');
-var stocksSelect = document.querySelector('#stocks');
+var stocksSelect = document.querySelector('#stocksSelect');
 var stocksInstance;
 var stocksTable = document.getElementById('stockstable');
 
