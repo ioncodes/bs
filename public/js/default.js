@@ -126,6 +126,16 @@ function getStats(roomId, cb) {
   });
 }
 
+function getMyStocks(cb) {
+  get('/api/user/stocks', (res) => {
+    if (res.status === 'ok') {
+      cb(res.stocks);
+    } else {
+      cb(undefined);
+    }
+  });
+}
+
 function getDate(roomId, cb) {
   post('/api/room/date', {
     room_id: roomId

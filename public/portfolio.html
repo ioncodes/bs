@@ -7,7 +7,7 @@
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/css/materialize.min.css">
   <link rel="stylesheet" href="css/default.css">
-  <link rel="stylesheet" href="css/rooms.css">
+  <link rel="stylesheet" href="css/portfolio.css">
   <link rel="stylesheet" href="css/navbar.css">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-alpha.3/js/materialize.min.js"></script>
@@ -34,8 +34,7 @@
         </div>
         <a href="#"><img class="circle" src="images/logo.png"></a>
         <a href="#"><span id="fullname" class="white-text name"></span></a>
-        <a href="#"><span id="username" class="white-text email"></span></a>
-        <!-- using email as little hack. Otherwise it will format it wrong! -->
+        <a href="#"><span id="username" class="white-text email"></span></a> <!-- using email as little hack. Otherwise it will format it wrong! -->
       </div>
     </li>
     <li><a class="waves-effect" href="#"><i class="material-icons">home</i>Home</a></li>
@@ -53,26 +52,27 @@
   </ul>
   <!-- End Navbar & Sidebar -->
 
-  <div id="rooms">
-    <table id="roomstable">
+  <div id="logs">
+    <table id="logtable">
       <thead>
         <tr>
-          <th>Start Value</th>
-          <th>Date</th>
-          <th>Money</th>
-          <th>Show</th>
-          <th>Delete</th>
+          <th>Symbol</th>
+          <th>Amount</th>
+          <th>Buy Price</th>
+          <th>Buy Date</th>
+          <th>Sell Price</th>
+          <th>Sell Date</th>
         </tr>
       </thead>
 
-      <tbody id="roomsbody">
+      <tbody>
 
       </tbody>
     </table>
   </div>
 
   <script src="js/navbar.js"></script>
-  <script src="js/rooms.js"></script>
+  <script src="js/portfolio.js"></script>
 </body>
 
 </html>
