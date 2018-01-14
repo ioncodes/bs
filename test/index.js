@@ -304,7 +304,6 @@ describe('Börsenspiel', () => {
       json: {
         room_id: roomId,
       },
-      jar: jar
     };
     request(options, function(error, response, body) {
       assert.equal(error, null);
