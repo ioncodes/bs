@@ -50,6 +50,19 @@ var options = {
     }]
   }
 };
+var owner = -1;
+
+function getName(i) {
+  if(i === owner) {
+    return 'You';
+  } else {
+    return i;
+  }
+}
+
+function isOwner(i) {
+  return i === owner;
+}
 
 getStats(roomId, stats => {
   let values = [];
@@ -59,16 +72,19 @@ getStats(roomId, stats => {
       if (values[i] === undefined) {
         values[i] = [];
       }
+      if(user.user === 1337) {
+        owner = i;
+      }
       values[i].push(user.money);
     });
   });
   values.forEach((money, i) => {
     let color = getRandomColor();
     data.datasets.push({
-      label: i,
+      label: getName(i),
       backgroundColor: color,
       borderColor: color,
-      fill: false, // TODO: true if owner
+      fill: false, // or isOwner(i)
       data: money
     });
   });
@@ -78,7 +94,6 @@ getStats(roomId, stats => {
     options: options,
   });
 });
-
 
 function buy() {
   buyInstance.open();
