@@ -5,6 +5,8 @@ var buyInstance = M.Modal.init(modalBuy, {});
 var sellInstance = M.Modal.init(modalSell, {});
 var buySymbol = document.querySelector('#buysymbol');
 var buyAmount = document.querySelector('#buyamount');
+var stocksSelect = document.querySelector('#stocks');
+var stocksInstance;
 
 var ctx = document.getElementById('stats').getContext('2d');
 var chart;
@@ -83,7 +85,16 @@ function buy() {
 }
 
 function sell() {
-  sellInstance.open();
+  getStocks(roomId, stocks => {
+    stocks.forEach(stock => {
+      let option = document.createElement('option');
+      option.text = `${stock.amount}x ${stock.symbol} @ $${stock.buy_price}`;
+      option.value = stock.stock_id;
+      stocksSelect.appendChild(option);
+    });
+    stocksInstance = M.Select.init(stocksSelect, {});
+    sellInstance.open();
+  });
 }
 
 function confirmBuy() {
@@ -104,7 +115,7 @@ function confirmBuy() {
 
 function confirmSell() {
   post('/api/stock/sell', {
-    stock_id: stockId
+    stock_id: stocksInstance.getSelectedValues()[0]
   }, (res) => {
     if(res.status === 'ok') {
       M.toast({html: 'Sold!'});

@@ -10,3 +10,7 @@
 #sell {
   margin-right: 70px;
 }
+
+#modalsell {
+  overflow: visible !important;
+}

@@ -138,6 +138,18 @@ function getDate(roomId, cb) {
   });
 }
 
+function getStocks(roomId, cb) {
+  post('/api/room/stocks', {
+    room_id: roomId
+  }, (res) => {
+    if (res.status === 'ok') {
+      cb(res.stocks);
+    } else {
+      cb(undefined);
+    }
+  });
+}
+
 function toDate(timestamp) {
   let monthsArr = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   let date = new Date(timestamp * 1000);
