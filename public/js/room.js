@@ -7,6 +7,7 @@ var buySymbol = document.querySelector('#buysymbol');
 var buyAmount = document.querySelector('#buyamount');
 var stocksSelect = document.querySelector('#stocks');
 var stocksInstance;
+var stocksTable = document.getElementById('stockstable');
 
 var ctx = document.getElementById('stats').getContext('2d');
 var chart;
@@ -51,6 +52,27 @@ var options = {
   }
 };
 var owner = -1;
+
+window.onload = () => {
+  getBoughtStocks(roomId, stocks => {
+    stocks.forEach(stock => {
+      let row = stocksTable.insertRow();
+      let symbol = row.insertCell(0);
+      let amount = row.insertCell(1);
+      let buyPrice = row.insertCell(2);
+      let currentPrice = row.insertCell(3);
+      symbol.innerHTML = stock.symbol;
+      amount.innerHTML = stock.amount;
+      buyPrice.innerHTML = `$${stock.buy_price}`;
+      currentPrice.innerHTML = `$${stock.current_price}`;
+      if(stock.buy_price > stock.current_price) {
+        currentPrice.style = 'color: red';
+      } else if(stock.buy_price < stock.current_price) {
+        currentPrice.style = 'color: green';
+      }
+    });
+  });
+}
 
 function getName(i) {
   if(i === owner) {

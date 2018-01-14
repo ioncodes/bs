@@ -149,6 +149,18 @@ function getMyStocks(cb) {
   });
 }
 
+function getBoughtStocks(roomId, cb) {
+  post('/api/room/bought_stocks', {
+    room_id: roomId,
+  }, (res) => {
+    if (res.status === 'ok') {
+      cb(res.stocks);
+    } else {
+      cb(undefined);
+    }
+  });
+}
+
 function getDate(roomId, cb) {
   post('/api/room/date', {
     room_id: roomId
