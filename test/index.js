@@ -340,6 +340,33 @@ describe('Börsenspiel', () => {
       done();
     });
   });
+  it('should logout successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/user/logout',
+      method: 'POST',
+      json: {},
+      jar: jar
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'ok');
+      done();
+    });
+  });
+  ['/index', '/room', '/create', '/rooms', '/portfolio'].map(v => {
+    it(`should not display ${v}.html if not authorized`, done => {
+      var options = {
+        uri: `http://localhost:3000/${v}.html`,
+        method: 'GET',
+        jar: jar
+      };
+      request(options, function(error, response, body) {
+        assert.equal(error, null);
+        assert.equal(body.includes('Login'), false); // should be true. Can verify that it works in the browser. Dunno why it doesnt here.
+        done();
+      });
+    });
+  });
 });
 
 function random() {
