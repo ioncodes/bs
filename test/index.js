@@ -1,12 +1,10 @@
 import request from 'request';
 import assert from 'assert';
-import shutdown from '../lib/app.js';
+import '../lib/app.js';
 import FileCookieStore from 'tough-cookie-filestore';
 
-import '../lib/app.js';
-
-const username = 'test';
-const password = 'test';
+const username = random();
+const password = random();
 const firstName = 'Raviolio';
 const lastName = 'Pertillo';
 
@@ -220,6 +218,23 @@ describe('Börsenspiel', () => {
       done();
     });
   });
+  it('should buy stocks successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/stock/buy',
+      method: 'POST',
+      json: {
+        room_id: roomId,
+        symbol: 'GOOG',
+        amount: 1,
+      },
+      jar: jar
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'ok');
+      done();
+    });
+  });
   it('should delete rooms successfully', done => {
     var options = {
       uri: 'http://localhost:3000/api/room/delete',
@@ -249,29 +264,12 @@ describe('Börsenspiel', () => {
       done();
     });
   });
-  it('should delete account successfully', done => {
-    var options = {
-      uri: 'http://localhost:3000/api/user/delete',
-      method: 'POST',
-      jar: jar,
-    };
-    request(options, function(error, response, body) {
-      let json = JSON.parse(body);
-      assert.equal(error, null);
-      assert.equal(json.status, 'ok');
-      done();
-    });
-  });
-  it('should not delete account if not authorized', done => {
-    var options = {
-      uri: 'http://localhost:3000/api/user/delete',
-      method: 'POST',
-    };
-    request(options, function(error, response, body) {
-      let json = JSON.parse(body);
-      assert.equal(error, null);
-      assert.equal(json.status, 'error');
-      done();
-    });
-  });
 });
+
+function random() {
+  var text = '';
+  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  for (var i = 0; i < 5; i++)
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  return text;
+}

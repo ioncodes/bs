@@ -7,7 +7,7 @@
     "start": "nodemon lib/app.js --exec babel-node",
     "build": "babel lib -d dist",
     "serve": "node dist/app.js",
-    "test": "nyc --reporter=html --reporter=text --reporter lcovonly mocha --require babel-core/register --exit",
+    "test": "nyc --reporter=html --reporter=text --reporter lcovonly mocha --require babel-core/register --exit --no-timeouts",
     "report-coverage": "nyc report --reporter=lcov > coverage/coverage.lcov && cd coverage && codecov -t 0db9b073-cee8-463a-89be-292176712deb"
   },
   "author": "",
