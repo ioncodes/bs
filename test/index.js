@@ -306,6 +306,23 @@ describe('Börsenspiel', () => {
       done();
     });
   });
+  it('should not buy stocks if doesnt exist', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/stock/buy',
+      method: 'POST',
+      json: {
+        room_id: roomId,
+        symbol: 'AJKDKLSJHJDKS',
+        amount: 1,
+      },
+      jar: jar
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'error');
+      done();
+    });
+  });
   it('should sell stocks successfully', done => {
     var options = {
       uri: 'http://localhost:3000/api/stock/sell',
@@ -436,6 +453,35 @@ describe('Börsenspiel', () => {
   it('should not get room stocks if not authorized', done => {
     var options = {
       uri: 'http://localhost:3000/api/room/stocks',
+      method: 'POST',
+      json: {
+        room_id: roomId,
+      },
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'error');
+      done();
+    });
+  });
+  it('should get bought stocks successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/bought_stocks',
+      method: 'POST',
+      json: {
+        room_id: roomId,
+      },
+      jar: jar
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'ok');
+      done();
+    });
+  });
+  it('should not get bought stocks if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/bought_stocks',
       method: 'POST',
       json: {
         room_id: roomId,
