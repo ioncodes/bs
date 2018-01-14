@@ -61,7 +61,8 @@ function register() {
       last_name: lastName.value,
     }, (res) => {
       if(res.status === 'ok') {
-        M.toast({html: 'Account created!'});
+        M.toast({html: 'Account created! Redirecting...'});
+        setTimeout(() => window.location.replace('/login.html'), 1000);
       } else {
         M.toast({html: 'Sorry, but there was an error!'})
       }
