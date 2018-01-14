@@ -26,11 +26,7 @@ function checkContent() {
 }
 
 function checkPassword() {
-  if(password.value.length < 8) {
-    password.classList.remove('valid');
-    password.classList.add('invalid');
-  }
-  if(password.value !== verifyPassword.value || verifyPassword.value.length < 8) {
+  if(password.value !== verifyPassword.value) {
     verifyPassword.classList.remove('valid');
     verifyPassword.classList.add('invalid');
   } else {
