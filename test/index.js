@@ -10,6 +10,7 @@ const lastName = 'Pertillo';
 
 var jar = request.jar(new FileCookieStore('cookies.json'));
 var roomId = 0;
+var stockId = 0;
 
 describe('Börsenspiel', () => {
   it('should start', done => {
@@ -232,6 +233,82 @@ describe('Börsenspiel', () => {
     request(options, function(error, response, body) {
       assert.equal(error, null);
       assert.equal(body.status, 'ok');
+      stockId = body.stock_id;
+      done();
+    });
+  });
+  it('should not buy stocks if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/stock/buy',
+      method: 'POST',
+      json: {
+        room_id: roomId,
+        symbol: 'GOOG',
+        amount: 1,
+      },
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'error');
+      done();
+    });
+  });
+  it('should sell stocks successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/stock/sell',
+      method: 'POST',
+      json: {
+        stock_id: stockId
+      },
+      jar: jar
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'ok');
+      done();
+    });
+  });
+  it('should not sell stocks if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/stock/sell',
+      method: 'POST',
+      json: {
+        stock_id: stockId
+      },
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'error');
+      done();
+    });
+  });
+  it('should get stats successfully', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/stats',
+      method: 'POST',
+      json: {
+        room_id: roomId,
+      },
+      jar: jar
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'ok');
+      done();
+    });
+  });
+  it('should not get stats if not authorized', done => {
+    var options = {
+      uri: 'http://localhost:3000/api/room/stats',
+      method: 'POST',
+      json: {
+        room_id: roomId,
+      },
+      jar: jar
+    };
+    request(options, function(error, response, body) {
+      assert.equal(error, null);
+      assert.equal(body.status, 'error');
       done();
     });
   });
