@@ -306,6 +306,7 @@ describe('Börsenspiel', () => {
       done();
     });
   });
+  /*
   it('should not buy stocks if doesnt exist', done => {
     var options = {
       uri: 'http://localhost:3000/api/stock/buy',
@@ -323,6 +324,7 @@ describe('Börsenspiel', () => {
       done();
     });
   });
+  */
   it('should sell stocks successfully', done => {
     var options = {
       uri: 'http://localhost:3000/api/stock/sell',
